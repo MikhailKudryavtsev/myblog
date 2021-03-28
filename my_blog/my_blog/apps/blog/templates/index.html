@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Мои статьи{% endblock %}
+{% block content %}
+
+<body style="padding-top: 56px;">
+ <div class="alert alert-warning mt-2" id="article_list">
+     <h1>Статьи!</h1>
+        {% if article_list %}
+            <ol>
+            {% for a in article_list %}
+                <li>
+                    <a href="{% url 'blog:article' a.id %}">{{ a.article_title }}</a>
+                </li>
+            {% endfor %}
+            </ol>
+        {% else %}
+            <h3>Еще нет ни одной статьи!</h3>
+        {% endif %}
+ </div>
+ </body>
+
+{% endblock %}
