@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block login %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<body style="padding-top: 56px;">
+<div id="login-box" style="height: 500px;">
+    <form action="{% url 'authorization:register' %}" method="POST">
+    {% csrf_token %}
+        <div class="left">
+            <h1>Регистрация</h1>
+            {{ form }}
+            <input class="button" type="submit" name="signup_submit" value="Регистрация"/>
+        </div>
+    </form>
+</div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %} {{ article.article_title }} {% endblock %}
+{% block content %}
+{% load static %}
+
+<body style="padding-top: 56px;">
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Post Content Column -->
+            <div class="col-lg-8">
+            <!-- Title -->
+            <h1 class="mt-4">{{ article.article_title }}</h1>
+            <!-- Author -->
+            <em class="lead">by {{ article.article_author }} {{ article.publication_date }}</em>
+            <hr>
+            <!-- Post Content -->
+            <p class="lead">{{ article.article }}</p>
+            <hr>
+            <!-- Single Comment -->
+            {% if comment_list %}
+                {% for c in comment_list%}
+                    <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                            <h4 class="mt-0">Комментарий от: {{ c.comment_author}}</h4>
+                            <p>{{ c.comment }}</p>
+                            <em class="mt-0">Опубликовано: {{ c.publication_date }}</em>
+                        </div>
+                    </div>
+                {% endfor%}
+            {% else %}
+                <em>Комментариев нет. Будьте первым!</em>
+            {% endif%}
+            <!-- Comments Form -->
+            <form action="{% url 'blog:leave_comment' article.id %}" method="POST">
+                {% csrf_token %}
+                <div class="card my-4">
+                    <h5 class="card-header">Комментарий:</h5>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" required placeholder="Ваше имя..." name="author" class="form-control"><br>
+                                <textarea class="form-control" name="comment" rows="3" placeholder="Комментарий.."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Оставить</button>
+                        </form>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Вход{% endblock %}
+{% block login %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<body style="padding-top: 56px;">
+<div id="login-box">
+    <form action="{% url 'authorization:login' %}" method="POST">
+    {% csrf_token %}
+        <div class="left">
+            <h1>Войти</h1>
+            <input type="text" name="username" placeholder="Username"/>
+            <input type="password" name="password" placeholder="Password"/>
+            {% if error %}
+                <label class="error" style="color: red;">{{ error }}</label>
+            {% endif %}
+            <input type="submit" name="signup_submit" value="Войти"/>
+            <div class="label round secondary"><a href="{% url 'authorization:register' %}">Регистрация</a></div>
+        </div>
+    </form>
+</div>
+</body>
+
+{% endblock %}

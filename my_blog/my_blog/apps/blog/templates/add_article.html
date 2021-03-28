@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Добавление статьи{% endblock %}
+{% block content %}
+
+<body style="padding-top: 56px;">
+{% if user.is_authenticated %}
+    <div class="alert alert-warning mt-2">
+        <h2>Написать статью</h2>
+        <form action="{% url 'blog:add_article' %}" method="POST" id="article">
+        {% csrf_token %}
+            <div class="card my-4">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" required placeholder="Название статьи" name="name" class="form-control"><br>
+                        <textarea class="form-control" name="article" rows="3" placeholder="Статья.."
+                                  style="margin-top: 0px; margin-bottom: 0px; height: 666px;"></textarea>
+                    </div>
+                <button type="submit" class="btn btn-primary">Добавить статью</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% else %}
+    <h2>
+        Необходимо авторизоваться!
+    </h2>
+{% endif %}
+</body>
+
+{% endblock %}
